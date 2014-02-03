@@ -49,9 +49,12 @@
 <canvas id="qr-canvas" width="640" height="480"></canvas>
 <button id="snap" onclick="
 	streamVideoToCanvas();checkForQRCode()">Scan</button>
+<div id="hashRead" data-bind="text: hashRead"></div>
+<div id="result" data-bind="text: result"></div>
 </body>
 
 <script>
+
 	this.favorArray = ko.observableArray([
 			new Favor("ce3551a8d999a88480ba1e417a4e17f79a0bb029167b6d753289bb0f76ce40e9bf9e4b8f3c47e6249600976879c5311c21772dd4f6fdc9dd8d31e55eca1e78b7",
 				"Unspecified Favor 1", null, null, false),
@@ -61,6 +64,13 @@
 				"Unspecified Favor 3", null, null, false)
 	]);
 	ko.applyBindingsToNode(document.getElementById('example'), null, window);
+
+	this.hashRead = ko.observable("");
+	this.result = ko.observable("");
+	ko.applyBindingsToNode(document.getElementById('hashRead'), null, window);
+	ko.applyBindingsToNode(document.getElementById('result'), null, window);
+
+
 	var hashVerifier = new HashVerifier(favorArray());
 	function checkForQRCode() {
 		setTimeout(function(){
@@ -70,11 +80,12 @@
 					var result = qrcode.decode();
 					console.log(result)
 					clearInterval(interval);
+					window.result(result)
 					var hashValid = hashVerifier.verify(result);
 					if (hashValid == hashVerifier.VALID) {
-						document.write('VALID!');
+						hashRead('VALID');
 					} else {
-						document.write('INVALID!');
+						hashRead('INVALID');
 					}
 				} catch(e) {
 					console.log(e);
