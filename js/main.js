@@ -1,11 +1,5 @@
-function add(number1, number2)
-{
-	return number1 + number2;
+function generateSha(message) {
+    var shaObj = new jsSHA(message, "TEXT");
+    var hash = shaObj.getHash("SHA-512", "HEX");
+    return hash;
 }
-
-function sub(number1,number2)
-{
-    return number1 - number2;
-}
-
-console.log(sub(5,4));
