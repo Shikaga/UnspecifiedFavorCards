@@ -1,5 +1,6 @@
 function HashVerifier(favorArray) {
     this.favorArray = favorArray;
+    emitter.on('codeScanned', this.verify, this)
 }
 
 HashVerifier.VALID = 0;
@@ -12,8 +13,12 @@ HashVerifier.prototype.verify = function(message) {
         var favor = this.favorArray[i];
         if (favor.hash == hash) {
             if (favor.used == false) {
+                emitter.trigger('scanComplete');
+                emitter.trigger('scanSuccess');
+                favor.setVerified();
                 return HashVerifier.VALID;
             } else {
+                emitter.trigger('scanFail');
                 return HashVerifier.USED;
             }
 

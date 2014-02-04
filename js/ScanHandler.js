@@ -59,6 +59,37 @@ function streamVideoToCanvas() {
     if (typeof MediaStreamTrack === 'undefined'){
         alert('This browser does not support MediaStreamTrack.\n\nTry Chrome Canary.');
     } else {
+        console.log(1);
         MediaStreamTrack.getSources(gotSources);
     }
 }
+
+function ScanHandler() {
+    this.hashVerifier = new HashVerifier(favorArray());
+    emitter.on('startScan', this.startScan, this);
+}
+
+ScanHandler.prototype.startScan = function() {
+    streamVideoToCanvas();
+    this.startScanningForQRCode();
+}
+
+ScanHandler.prototype.stopScan = function() {
+
+}
+
+ScanHandler.prototype.startScanningForQRCode = function() {
+    setTimeout(function(){
+        var interval = null;
+        interval = setInterval(function() {
+            try {
+                var result = qrcode.decode();
+                clearInterval(interval);
+                emitter.trigger('codeScanned', result);
+            } catch(e) {
+                console.log(e);
+            }
+        }, 3000);
+    }, 5000);
+}
+

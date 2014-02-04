@@ -41,3 +41,33 @@ test( "can assert a hash is already used in array", function() {
     var result = testVerifier.verify('thisIsATest2');
     equal(HashVerifier.USED, result);
 });
+
+//////////////////////////////////////////////////////////////////////////
+// UI
+//////////////////////////////////////////////////////////////////////////
+
+test( "UI hides video to begin", function() {
+    UIHandler.prototype.bindToDom = function() {};
+    var uiHandler = new UIHandler();
+    equal(false, uiHandler.videoVisible());
+});
+
+
+test( "UI shows video when scan clicked", function() {
+    var mockScanHandler = createMock(ScanHandler);
+    UIHandler.prototype.bindToDom = function() {};
+    var uiHandler = new UIHandler(mockScanHandler);
+    uiHandler.onScanClicked();
+    equal(true, uiHandler.videoVisible());
+    equal(true, mockScanHandler.startScan.called);
+});
+
+function createMock(yourClass) {
+    var keys = Object.keys(yourClass.prototype);
+    var mockObject = {};
+    keys.forEach(function(key) {
+        mockObject[key] = sinon.spy();
+    })
+    return mockObject;
+}
+
