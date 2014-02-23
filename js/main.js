@@ -15,6 +15,4 @@ this.favorArray = ko.observableArray([
         "Unspecified Favor 3", null, null, false),
     new Favor("1e7cc2c503dbfc13255924dde56f0ec99abe8449142b74b44a0a32bf285261afb72d088c34de64f1f59e5398644e7060bfc342d49d4a60441020d478ec189010",
         "Test Favor", null, null, false)
-
-
 ]);

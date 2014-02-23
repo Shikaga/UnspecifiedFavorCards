@@ -46,20 +46,42 @@ test( "can assert a hash is already used in array", function() {
 // UI
 //////////////////////////////////////////////////////////////////////////
 
-test( "UI hides video to begin", function() {
+test( "UI hides video and favors to begin", function() {
     UIHandler.prototype.bindToDom = function() {};
     var uiHandler = new UIHandler();
-    equal(false, uiHandler.videoVisible());
+    equal(false, uiHandler.cameraVisible());
+    equal(false, uiHandler.favorsVisible());
+});
+
+test( "shows favors when button clicked", function() {
+    UIHandler.prototype.bindToDom = function() {};
+    var uiHandler = new UIHandler();
+    uiHandler.onShowFavorsClicked();
+    equal(false, uiHandler.cameraVisible());
+    equal(true, uiHandler.favorsVisible());
+});
+
+test( "hides favors when button clicked", function() {
+    UIHandler.prototype.bindToDom = function() {};
+    var uiHandler = new UIHandler();
+    uiHandler.onShowFavorsClicked();
+    uiHandler.onHideFavorsClicked();
+    equal(false, uiHandler.cameraVisible());
+    equal(false, uiHandler.favorsVisible());
 });
 
 
 test( "UI shows video when scan clicked", function() {
+    emitter = {
+        trigger: sinon.spy(),
+        on: sinon.spy()
+    }
     var mockScanHandler = createMock(ScanHandler);
     UIHandler.prototype.bindToDom = function() {};
-    var uiHandler = new UIHandler(mockScanHandler);
+    var uiHandler = new UIHandler();
     uiHandler.onScanClicked();
-    equal(true, uiHandler.videoVisible());
-    equal(true, mockScanHandler.startScan.called);
+    equal(true, uiHandler.cameraVisible());
+    equal(true, emitter.trigger.calledWith('startScan'));
 });
 
 function createMock(yourClass) {

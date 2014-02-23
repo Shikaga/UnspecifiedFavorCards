@@ -1,6 +1,6 @@
 function UIHandler() {
     this.cameraVisible = ko.observable(false);
-    this.favorsVisible = ko.observable(true);
+    this.favorsVisible = ko.observable(false);
 
     this.hashRead = ko.observable("");
     this.result = ko.observable("");
@@ -9,6 +9,15 @@ function UIHandler() {
         this.favorsVisible(false);
         emitter.trigger('startScan');
     }.bind(this);
+    this.onShowFavorsClicked = function() {
+        this.favorsVisible(true);
+    }.bind(this);
+    this.onHideFavorsClicked = function() {
+        this.favorsVisible(false);
+    }.bind(this);
+    this.onCancelVideoClicked = function() {
+        emitter.trigger('scanComplete');
+    }
     this.bindToDom();
 
     emitter.on('scanComplete', function() {
@@ -18,7 +27,5 @@ function UIHandler() {
 }
 
 UIHandler.prototype.bindToDom = function() {
-    ko.applyBindingsToNode(document.getElementById('cameraView'), null, this);
-    ko.applyBindingsToNode(document.getElementById('favorView'), null, this);
-    ko.applyBindingsToNode(document.getElementById('scan'), null, this);
+    ko.applyBindings(this);
 }

@@ -6,6 +6,14 @@ function streamVideoToCanvas() {
             context = canvas.getContext("2d"),
             video = document.getElementById("video");
 
+        function resizeCanvas() {
+            canvas.width = window.innerHeight * 1.33;
+            canvas.height = window.innerHeight;
+            canvas.style.left = -(canvas.width - window.innerWidth)/2;
+            canvas.style.position = 'relative';
+        }
+        resizeCanvas();
+
         var videoObj = {
             video: {
                 optional: [{sourceId: id}]
@@ -39,7 +47,7 @@ function streamVideoToCanvas() {
 
         setInterval(
             function () {
-                context.drawImage(video, 0, 0, 640, 480);
+                context.drawImage(video, 0, 0, canvas.height * 1.33, canvas.height);
             },33);
     }
 

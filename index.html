@@ -51,19 +51,28 @@
 
 </head>
 
-<body class="container theme-showcase" style="margin-top: 20px">
+<body class="container theme-showcase">
 
 <div id="cameraView" data-bind="visible: cameraVisible()" >
-	<video id="video" width="640" height="480" style="display:none" autoplay></video>
-	<canvas id="qr-canvas" width="640" height="480"></canvas>
+	<video id="video" width="200px" height="200px" style="display:none" autoplay></video>
+	<canvas id="qr-canvas" width="200px" height="200px"></canvas>
+	<button style="width: 80%" class="btn btn-lg btn-danger cancel-btn" data-bind="click: onCancelVideoClicked">Cancel</button>
 </div>
 
-<div id="favorView" data-bind="visible: favorsVisible()">
-	<span id="example" data-bind="template: { name: 'example-template', foreach: favorArray }"></span>
-	<div style="text-align: center">
-		<button id="scan" class="btn btn-lg btn-danger" data-bind="click: onScanClicked">Scan QR Code</button>
-	</div>
+<div style="margin-top: 20px; text-align: center" data-bind="visible: !favorsVisible()">
+	<button class="btn btn-lg btn-success" data-bind="click: onShowFavorsClicked">Show Favors</button>
 </div>
+<div style="text-align: center" data-bind="visible: favorsVisible()">
+	<button class="btn btn-lg btn-success" data-bind="click: onHideFavorsClicked">Hide Favors</button>
+</div>
+<br />
+<div id="favorView" data-bind="visible: favorsVisible">
+	<span id="example" data-bind="template: { name: 'example-template', foreach: favorArray }"></span>
+</div>
+<div style="text-align: center" data-bind="visible: !cameraVisible()">
+	<button id="scan" class="btn btn-lg btn-danger" data-bind="click: onScanClicked">Scan QR Code</button>
+</div>
+
 
 <!--
 <div id="hashRead" data-bind="text: hashRead"></div>
@@ -73,7 +82,6 @@
 </body>
 <script type="text/javascript" src="js/main.js"></script>
 <script>
-	ko.applyBindingsToNode(document.getElementById('example'), null, this);
 	var scanHandler = new ScanHandler();
 	var uiHandler = new UIHandler();
 </script>
