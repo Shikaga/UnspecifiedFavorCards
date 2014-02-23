@@ -18,8 +18,6 @@ function UIHandler() {
 }
 
 UIHandler.prototype.bindToDom = function() {
-//    ko.applyBindingsToNode(document.getElementById('hashRead'), null, this);
-//    ko.applyBindingsToNode(document.getElementById('result'), null, this);
     ko.applyBindingsToNode(document.getElementById('cameraView'), null, this);
     ko.applyBindingsToNode(document.getElementById('favorView'), null, this);
     ko.applyBindingsToNode(document.getElementById('scan'), null, this);
