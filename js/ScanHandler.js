@@ -7,7 +7,7 @@ function streamVideoToCanvas() {
             video = document.getElementById("video");
 
         function resizeCanvas() {
-            canvas.width = window.innerHeight * 1.33;
+            canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             canvas.style.left = -(canvas.width - window.innerWidth)/2;
             canvas.style.position = 'relative';
@@ -47,7 +47,7 @@ function streamVideoToCanvas() {
 
         setInterval(
             function () {
-                context.drawImage(video, 0, 0, canvas.height * 1.33, canvas.height);
+                context.drawImage(video, 0, 0, canvas.height, canvas.height);
             },33);
     }
 
@@ -100,4 +100,3 @@ ScanHandler.prototype.startScanningForQRCode = function() {
         }, 3000);
     }, 5000);
 }
-

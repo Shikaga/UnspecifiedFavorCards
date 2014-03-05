@@ -3,10 +3,9 @@
 	<title>Unspecified Favor Validator</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-	<meta name="viewport" content="width=device-width" />
 
-	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/main.css">
 
 	<script type="text/javascript" src="lib/mustache.js"></script>
 	<script type="text/javascript" src="lib/knockout.js"></script>
@@ -51,28 +50,29 @@
 
 </head>
 
-<body class="container theme-showcase">
+<body >
 
-<div id="cameraView" data-bind="visible: cameraVisible()" >
-	<video id="video" width="200px" height="200px" style="display:none" autoplay></video>
-	<canvas id="qr-canvas" width="200px" height="200px"></canvas>
-	<button style="width: 80%" class="btn btn-lg btn-danger cancel-btn" data-bind="click: onCancelVideoClicked">Cancel</button>
-</div>
+	<div id="cameraView" data-bind="visible: cameraVisible()" >
+		<video id="video" width="200px" height="200px" style="display:none" autoplay></video>
+		<canvas id="qr-canvas" width="200px" height="200px"></canvas>
+		<button style="width: 80%" class="btn btn-lg btn-danger cancel-btn" data-bind="click: onCancelVideoClicked">Cancel</button>
+	</div>
 
-<div style="margin-top: 20px; text-align: center" data-bind="visible: !favorsVisible()">
-	<button class="btn btn-lg btn-success" data-bind="click: onShowFavorsClicked">Show Favors</button>
-</div>
-<div style="text-align: center" data-bind="visible: favorsVisible()">
-	<button class="btn btn-lg btn-success" data-bind="click: onHideFavorsClicked">Hide Favors</button>
-</div>
-<br />
-<div id="favorView" data-bind="visible: favorsVisible">
-	<span id="example" data-bind="template: { name: 'example-template', foreach: favorArray }"></span>
-</div>
-<div style="text-align: center" data-bind="visible: !cameraVisible()">
-	<button id="scan" class="btn btn-lg btn-danger" data-bind="click: onScanClicked">Scan QR Code</button>
-</div>
-
+	<div class="container theme-showcase">
+		<div style="margin-top: 20px; text-align: center" data-bind="visible: !favorsVisible()">
+			<button class="btn btn-lg btn-success" data-bind="click: onShowFavorsClicked">Show Favors</button>
+		</div>
+		<div style="text-align: center" data-bind="visible: favorsVisible()">
+			<button class="btn btn-lg btn-success" data-bind="click: onHideFavorsClicked">Hide Favors</button>
+		</div>
+		<br />
+		<div id="favorView" data-bind="visible: favorsVisible">
+			<span id="example" data-bind="template: { name: 'example-template', foreach: favorArray }"></span>
+		</div>
+		<div style="text-align: center" data-bind="visible: !cameraVisible()">
+			<button id="scan" class="btn btn-lg btn-danger" data-bind="click: onScanClicked">Scan QR Code</button>
+		</div>
+	</div>
 
 <!--
 <div id="hashRead" data-bind="text: hashRead"></div>
